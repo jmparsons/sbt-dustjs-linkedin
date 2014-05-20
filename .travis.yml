@@ -1,5 +1,6 @@
 install:
   - npm install
+  - npm install -g dustjs-linkedin
 jdk: openjdk6
 language: scala
 script: sbt scripted
