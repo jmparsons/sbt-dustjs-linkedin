@@ -1,3 +1,5 @@
+install:
+  - npm install
 jdk: openjdk6
 language: scala
 script: sbt scripted
