@@ -1,4 +1,7 @@
 # sbt-dustjs-linkedin
+
+[![Build Status](https://api.travis-ci.org/jmparsons/sbt-dustjs-linkedin.png?branch=master)](https://travis-ci.org/jmparsons/sbt-dustjs-linkedin)
+
 An SBT plugin to compile [Dustjs](https://github.com/linkedin/dustjs) templates.
 
 This plugin is a continuation of [play-dustjs][play-dustjs] built for [sbt-web][sbt-web] and [Play 2.3.x][play].
