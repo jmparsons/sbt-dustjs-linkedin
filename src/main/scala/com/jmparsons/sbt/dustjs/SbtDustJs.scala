@@ -42,7 +42,7 @@ object SbtDustJs extends AutoPlugin {
       inConfig(TestAssets)(dustjsUnscopedSettings) ++
       Seq(
         moduleName := "dustjs",
-        shellFile := getClass.getClassLoader.getResource("dustjs.js"),
+        shellFile := getClass.getClassLoader.getResource("dust-shell.js"),
 
         taskMessage in Assets := "DustJs compiling",
         taskMessage in TestAssets := "DustJs test compiling"
