@@ -10,41 +10,27 @@ This plugin is a continuation of [play-dustjs][play-dustjs] built for [sbt-web][
 
 Add the sbt plugin to your `project/plugins.sbt` file:
 
-    addSbtPlugin("com.jmparsons.sbt" % "sbt-dustjs-linkedin" % "1.0.0")
-
-The plugin requires the node [dustjs-linkedin][dustjs-linkedin] plugin either installed locally or globally.
+    addSbtPlugin("com.jmparsons.sbt" % "sbt-dustjs-linkedin" % "1.0.1")
 
 ## Usage
 
-Include the core dust file - can be downloaded from [LinkedIn Dustjs](http://linkedin.github.io/dustjs/) or [here](https://github.com/linkedin/dustjs/tree/master/dist).
+#### Install dust-core
 
-    <script src="@routes.Assets.at("javascripts/dust-core-2.3.4.js")"></script>
-
-Or can be used with [webjars][webjars]:
+Include the core dust file using [webjars][webjars]:
 
     libraryDependencies ++= Seq(
-      "org.webjars" % "dustjs-linkedin" % "2.3.4"
+      "org.webjars" % "dustjs-linkedin" % "2.4.0-1"
     )
 
 The webjars path will look like this:
 
     <script src="@routes.Assets.at("lib/dustjs-linkedin/dust-core.js")"></script>
 
-Be sure your webjar or front end version of `dustjs-linkedin` matches with the node compiler version.
+Or include the dust core file manually from [LinkedIn Dustjs](http://linkedin.github.io/dustjs/).
 
-If you're specifiying the npm install using a package.json file:
+    <script src="@routes.Assets.at("javascripts/dust-core-2.4.0.js")"></script>
 
-    {
-      "name": "test-project",
-      "version": "1.0.0",
-      "dependencies": {},
-      "devDependencies": {
-        "dustjs-linkedin": "~2.3.4"
-      },
-      "engines": {
-        "node": ">=0.8.0"
-      }
-    }
+#### Add your templates
 
 Place your template **.tl** files anywhere inside of the `app/assets/` it will be available in the corresponding directory. If placed into `app/assets/templates/` the output would be `target/web/public/main/templates/`.
 
@@ -78,16 +64,21 @@ Example project with RequireJS using play-dustjs: <https://github.com/jmparsons/
 
 ## Changelog
 
+1.0.1 - July 7, 2014
+
+- Updated to dustjs-linked version 2.4.0
+- Added webjar as npm module
+- Removed dependency for npm installed dust
+
 1.0.0 - May 19, 2014
 
 - Inital commit
 - Added tests using sbt scripted
 
+## License
+MIT: <http://jmparsons.mit-license.org> - [@jmparsons](http://twitter.com/jmparsons)
+
 [play]: http://www.playframework.com/
 [play-dustjs]: https://github.com/jmparsons/play-dustjs
 [sbt-web]: https://github.com/sbt/sbt-web
 [webjars]: http://www.webjars.org/
-[dustjs-linkedin]: https://www.npmjs.org/package/dustjs-linkedin
-
-## License
-MIT: <http://jmparsons.mit-license.org> - [@jmparsons](http://twitter.com/jmparsons)

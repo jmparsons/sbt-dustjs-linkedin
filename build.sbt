@@ -11,7 +11,8 @@ sbtPlugin := true
 libraryDependencies ++= Seq(
   "com.typesafe" % "jstranspiler" % "1.0.0",
   "org.webjars" % "mkdirp" % "0.3.5",
-  "org.webjars" % "when-node" % "3.2.2"
+  "org.webjars" % "when-node" % "3.2.2",
+  "org.webjars" % "dustjs-linkedin" % "2.4.0-1"
 )
 
 resolvers ++= Seq(
