@@ -10,7 +10,7 @@ This plugin is a continuation of [play-dustjs][play-dustjs] built for [sbt-web][
 
 Add the sbt plugin to your `project/plugins.sbt` file:
 
-    addSbtPlugin("com.jmparsons.sbt" % "sbt-dustjs-linkedin" % "1.0.1")
+    addSbtPlugin("com.jmparsons.sbt" % "sbt-dustjs-linkedin" % "1.0.2")
 
 ## Usage
 
@@ -63,6 +63,11 @@ Render the template:
 Example project with RequireJS using play-dustjs: <https://github.com/jmparsons/play-scala-backbone-todo>
 
 ## Changelog
+
+1.0.2 - July 9, 2014
+
+- Reverted away from transpiler to have more control
+- Fixed source file mapping bug
 
 1.0.1 - July 7, 2014
 

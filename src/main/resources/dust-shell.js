@@ -1,70 +1,84 @@
 /*global process, require */
 
-var fs = require("fs"),
-    jst = require("jstranspiler"),
-    nodefn = require("when/node"),
-    mkdirp = require("mkdirp"),
-    path = require("path"),
-    dust = require("dustjs-linkedin");
+(function () {
 
-var promised = {
-    mkdirp: nodefn.lift(mkdirp),
-    readFile: nodefn.lift(fs.readFile),
-    writeFile: nodefn.lift(fs.writeFile)
-  };
+    "use strict";
 
-var args = jst.args(process.argv);
+    var args = process.argv,
+        fs = require("fs"),
+        mkdirp = require("mkdirp"),
+        path = require("path"),
+        dust = require("dustjs-linkedin");
 
-function processor(input, output) {
+    var SOURCE_FILE_MAPPINGS_ARG = 2;
+    var TARGET_ARG = 3;
+    var OPTIONS_ARG = 4;
 
-  return promised.readFile(input, "utf8").then(function(contents) {
+    var sourceFileMappings = JSON.parse(args[SOURCE_FILE_MAPPINGS_ARG]);
+    var target = args[TARGET_ARG];
+    var options = JSON.parse(args[OPTIONS_ARG]);
 
-    var options = args.options;
-    options.filename = input;
+    var sourcesToProcess = sourceFileMappings.length;
+    var results = [];
+    var problems = [];
 
-    var moduleName = args.sourceFileMappings[0][1].replace(/\.tl$/i, '');
-    try {
-      var result = dust.compile(contents, moduleName);
-    } catch (err) {
-      throw parseError(input, contents, err);
+    function compileDone() {
+        if (--sourcesToProcess === 0) {
+            console.log("\u0010" + JSON.stringify({results: results, problems: problems}));
+        }
     }
-    return result;
 
-  }).then(function(result) {
-    return promised.mkdirp(path.dirname(output)).yield(result);
+    function throwIfErr(e) {
+        if (e) throw e;
+    }
 
-  }).then(function(result) {
-    return promised.writeFile(output, result, "utf8").yield(result);
+    sourceFileMappings.forEach(function (sourceFileMapping) {
 
-  }).then(function(result) {
-    return {
-      source: input,
-      result: {
-          filesRead: [input],
-          filesWritten: [output]
-      }
-    };
-  }).catch(function(e) {
-    if (jst.isProblem(e)) return e; else throw e;
-  });
+        var input = sourceFileMapping[0];
+        var outputFile = sourceFileMapping[1].replace(/\.tl$/i, ".js");
+        var output = path.join(target, outputFile);
+        var moduleName = outputFile.replace(/\.js$/i, '');
 
-}
+        fs.readFile(input, "utf8", function (e, contents) {
+            throwIfErr(e);
 
-jst.process({processor: processor, inExt: ".tl", outExt: ".js"}, args);
+            try {
+                mkdirp(path.dirname(output), function (e) {
+                    throwIfErr(e);
 
-/**
- * Utility to take a dust error object and coerce it into a Problem object.
- */
-function parseError(input, contents, err) {
-  var errLines = err.message.split("\n");
-  var lineNumber = (errLines.length > 0? errLines[0].substring(errLines[0].indexOf(":") + 1).split(",")[0] : 0);
-  var lines = contents.split("\n", lineNumber);
-  return {
-    message: err.name + ": " + (errLines.length > 2? errLines[errLines.length - 2] : err.message),
-    severity: "error",
-    lineNumber: parseInt(lineNumber),
-    characterOffset: 0,
-    lineContent: (lineNumber > 0 && lines.length >= lineNumber? lines[lineNumber - 1] : "Unknown line"),
-    source: input
-  };
-}
+                    var compiled = dust.compile(contents, moduleName);
+
+                    fs.writeFile(output, compiled, "utf8", function (e) {
+                        throwIfErr(e);
+
+                        results.push({
+                            source: input,
+                            result: {
+                                filesRead: [input],
+                                filesWritten: [output]
+                            }
+                        });
+
+                        compileDone();
+                    });
+                });
+
+            } catch (err) {
+                problems.push({
+                    message: err.message,
+                    severity: "error",
+                    lineNumber: err.location.first_line,
+                    characterOffset: err.location.first_column,
+                    lineContent: contents.split("\n")[err.location.first_line],
+                    source: input
+                });
+                results.push({
+                    source: input,
+                    result: null
+                });
+
+                compileDone();
+            }
+        });
+    });
+})();

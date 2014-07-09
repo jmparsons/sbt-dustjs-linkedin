@@ -1,6 +1,6 @@
 name := "sbt-dustjs-linkedin"
 
-version := "1.0.1"
+version := "1.0.2"
 
 organization := "com.jmparsons.sbt"
 
@@ -9,9 +9,7 @@ scalaVersion := "2.10.4"
 sbtPlugin := true
 
 libraryDependencies ++= Seq(
-  "com.typesafe" % "jstranspiler" % "1.0.0",
   "org.webjars" % "mkdirp" % "0.3.5",
-  "org.webjars" % "when-node" % "3.2.2",
   "org.webjars" % "dustjs-linkedin" % "2.4.0-1"
 )
 
@@ -23,7 +21,7 @@ resolvers ++= Seq(
   Resolver.mavenLocal
 )
 
-addSbtPlugin("com.typesafe.sbt" %% "sbt-js-engine" % "1.0.0")
+addSbtPlugin("com.typesafe.sbt" %% "sbt-js-engine" % "1.0.1")
 
 publishMavenStyle := false
 
