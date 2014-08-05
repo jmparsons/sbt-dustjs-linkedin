@@ -38,7 +38,8 @@
         var outputFile = sourceFileMapping[1].replace(/\.tl$/i, ".js");
         var output = path.join(target, outputFile);
         var moduleName = outputFile.replace(/\.js$/i, '');
-
+        moduleName = moduleName.replace(/\\/i, '/');
+        
         fs.readFile(input, "utf8", function (e, contents) {
             throwIfErr(e);
 
