@@ -35,11 +35,10 @@
     sourceFileMappings.forEach(function (sourceFileMapping) {
 
         var input = sourceFileMapping[0];
-        var outputFile = sourceFileMapping[1].replace(/\.tl$/i, ".js");
+        var outputFile = path.normalize(sourceFileMapping[1]).replace(/\.tl$/i, ".js");
         var output = path.join(target, outputFile);
-        var moduleName = outputFile.replace(/\.js$/i, '');
-        moduleName = moduleName.replace(/\\/i, '/');
-        
+        var moduleName = outputFile.replace(/\.js$/i, "").split(path.sep).join("/");
+
         fs.readFile(input, "utf8", function (e, contents) {
             throwIfErr(e);
 

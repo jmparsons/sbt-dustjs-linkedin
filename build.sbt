@@ -1,6 +1,6 @@
 name := "sbt-dustjs-linkedin"
 
-version := "1.0.2"
+version := "1.0.3"
 
 organization := "com.jmparsons.sbt"
 
