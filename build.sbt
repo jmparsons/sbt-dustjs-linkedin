@@ -10,7 +10,7 @@ sbtPlugin := true
 
 libraryDependencies ++= Seq(
   "org.webjars" % "mkdirp" % "0.3.5",
-  "org.webjars" % "dustjs-linkedin" % "2.4.0-1"
+  "org.webjars" % "dustjs-linkedin" % "2.7.2"
 )
 
 resolvers ++= Seq(
