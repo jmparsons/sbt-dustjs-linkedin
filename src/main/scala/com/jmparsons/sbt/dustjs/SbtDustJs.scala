@@ -10,6 +10,9 @@ object Import {
 
   object DustJsKeys {
     val dustjs = TaskKey[Seq[File]]("dustjs", "Invoke the DustJs compiler.")
+
+    val helpers = SettingKey[Boolean]("dustjs-helpers", "Load in DustJs helpers.")
+    val infoNotice = SettingKey[Boolean]("dustjs-info-notice", "Show DustJs notice.")
   }
 
 }
@@ -28,14 +31,16 @@ object SbtDustJs extends AutoPlugin {
   import autoImport.DustJsKeys._
 
   val dustjsUnscopedSettings = Seq(
-
     includeFilter := "*.tl",
-
     jsOptions := JsObject(
+      "helpers" -> JsBoolean(helpers.value),
+      "infoNotice" -> JsBoolean(infoNotice.value)
     ).toString()
   )
 
   override def projectSettings = Seq(
+    helpers := false,
+    infoNotice := false
   ) ++ inTask(dustjs)(
     SbtJsTask.jsTaskSpecificUnscopedSettings ++
       inConfig(Assets)(dustjsUnscopedSettings) ++
@@ -43,7 +48,6 @@ object SbtDustJs extends AutoPlugin {
       Seq(
         moduleName := "dustjs",
         shellFile := getClass.getClassLoader.getResource("dust-shell.js"),
-
         taskMessage in Assets := "DustJs compiling",
         taskMessage in TestAssets := "DustJs test compiling"
       )

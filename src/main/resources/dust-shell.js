@@ -18,6 +18,18 @@
     var target = args[TARGET_ARG];
     var options = JSON.parse(args[OPTIONS_ARG]);
 
+    if (options.helpers) {
+        try {
+          require("dustjs-helpers");
+        } catch (e) {
+          console.log(e);
+        }
+    }
+
+    if (options.infoNotice) {
+        console.log("DustJs version:", dust.version, " helpers:", ((options.helpers) ? "" : "in") + "active");
+    }
+
     var sourcesToProcess = sourceFileMappings.length;
     var results = [];
     var problems = [];

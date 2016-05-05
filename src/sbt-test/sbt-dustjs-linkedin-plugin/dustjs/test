@@ -1,4 +1,5 @@
 # Compile a template file
+> web-assets:webNodeModules
 > assets
 $ exists target/web/public/main/dustjs/main.tl
 $ exists target/web/public/main/dustjs/main.js
