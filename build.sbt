@@ -9,7 +9,7 @@ sbtPlugin := true
 scalaVersion := "2.10.4"
 
 libraryDependencies ++= Seq(
-  "org.webjars" % "mkdirp" % "0.3.5",
+  "org.webjars" % "mkdirp" % "0.5.0",
   "org.webjars" % "dustjs-linkedin" % "2.7.2"
 )
 
