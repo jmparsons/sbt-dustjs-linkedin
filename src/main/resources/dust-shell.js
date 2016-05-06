@@ -7,8 +7,7 @@
     var args = process.argv,
         fs = require("fs"),
         mkdirp = require("mkdirp"),
-        path = require("path"),
-        dust = require("dustjs-linkedin");
+        path = require("path");
 
     var SOURCE_FILE_MAPPINGS_ARG = 2;
     var TARGET_ARG = 3;
@@ -18,11 +17,17 @@
     var target = args[TARGET_ARG];
     var options = JSON.parse(args[OPTIONS_ARG]);
 
+    try {
+        var dust = require("dustjs-linkedin");
+    } catch (e) {
+        console.error("DustJs: " + e);
+    }
+
     if (options.helpers) {
         try {
           require("dustjs-helpers");
         } catch (e) {
-          console.log(e);
+          console.error("DustJs: " + e);
         }
     }
 

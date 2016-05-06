@@ -2,7 +2,7 @@ name := "sbt-dustjs-linkedin"
 
 organization := "com.jmparsons.sbt"
 
-version := "1.0.4-SNAPSHOT"
+version := "1.0.4"
 
 sbtPlugin := true
 

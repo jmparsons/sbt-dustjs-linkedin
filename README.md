@@ -4,65 +4,128 @@
 
 An SBT plugin to compile [Dustjs](https://github.com/linkedin/dustjs) templates.
 
-This plugin is a continuation of [play-dustjs][play-dustjs] built for [sbt-web][sbt-web] and [Play 2.3.x][play].
+This plugin is a continuation of [play-dustjs][play-dustjs] built for [sbt-web][sbt-web] and [Play 2.3.x][play] -  [Play 2.5.x][play].
 
 ## Installation
 
 Add the sbt plugin to your `project/plugins.sbt` file:
 
-    addSbtPlugin("com.jmparsons.sbt" % "sbt-dustjs-linkedin" % "1.0.3")
+```scala
+addSbtPlugin("com.jmparsons.sbt" % "sbt-dustjs-linkedin" % "1.0.4")
+```
+
+Two options are available:
+
+Option              | Description
+--------------------|------------------------------------------------------
+helpers             | Loads in DustJs helpers if they are available.
+infoNotice          | Show DustJs version number and if helpers are active.
+
+Example:
+
+```scala
+DustJsKeys.helpers in Assets := true
+```
 
 ## Usage
 
-#### Install dust-core
+#### Install mkdirp, dustjs-linked and optionally dustjs-helpers for node
 
-Include the core dust file using [webjars][webjars]:
+Add `package.json` to base folder of project and run `npm install` to load in node dependencies.
 
-    libraryDependencies ++= Seq(
-      "org.webjars" % "dustjs-linkedin" % "2.4.0-1"
-    )
+```json
+{
+  "name": "sbt-dust-tester",
+  "version": "0.0.0",
+  "dependencies": {
+    "mkdirp": "~0.5.0",
+    "dustjs-linkedin": "2.7.2",
+    "dustjs-helpers": "1.7.3"
+  }
+}
+```
 
-The webjars path will look like this:
+Versions can be updated here, but should match the webjar bower versions.
 
-    <script src="@routes.Assets.at("lib/dustjs-linkedin/dust-core.js")"></script>
+#### Install dustjs-linked and optionally dustjs-helpers bower webjars
 
-Or include the dust core file manually from [LinkedIn Dustjs](http://linkedin.github.io/dustjs/).
+Include the corresponding versioned dust files as the node dependencies:
 
-    <script src="@routes.Assets.at("javascripts/dust-core-2.4.0.js")"></script>
+```scala
+libraryDependencies ++= Seq(
+  "org.webjars.bower" % "dustjs-linkedin" % "2.7.2",
+  "org.webjars.bower" % "dustjs-helpers" % "1.7.3"
+)
+```
 
-#### Add your templates
+Newer versions can be added quickly using the add new webjar at [bower webjars](http://www.webjars.org/bower).
+
+The dust files can also be added manually in the `public` folder from [LinkedIn Dustjs](http://linkedin.github.io/dustjs/).
+
+#### Render your templates
 
 Place your template **.tl** files anywhere inside of the `app/assets/` it will be available in the corresponding directory. If placed into `app/assets/templates/` the output would be `target/web/public/main/templates/`.
 
-Pull in the generated javascript template file:
+**RequireJS** example:
 
-    <script src="@routes.Assets.at("templates/example.js")"></script>
+```coffeescript
+require.config
+  paths:
+    jquery: "../lib/jquery/jquery"
+    dust: "../lib/dustjs-linkedin/dist/dust-full"
+    dustHelpers: "../lib/dustjs-helpers/dist/dust-helpers"
+    testTemplate: "../templates/test"
+  shim:
+    jquery:
+      exports: "$"
+    dustHelpers:
+      deps: ["dust"]
+    testTemplate:
+      deps: ["dust", "dustHelpers"]
 
-Example requirejs loading config:
+require ["jquery", "testTemplate"], ->
+  $ ->
+    $.get "/data", (data) ->
+      dust.render "templates/test", data, (err, out) ->
+        $("#dust_pan").html (if err? then err else out)
+```
 
-    require.config
-      paths:
-        dust: "../lib/dustjs-linkedin/dust-core"
-      shim:
-        "../templates/example":
-          deps: ["dust"]
+**Javascript** example:
 
-    require ["dust", "../templates/example"], () ->
-
-Render the template:
-
-    $(function() {
-      $.get('@routes.Application.data', function(data) {
-        console.log('data = ' + JSON.stringify(data));
-        dust.render('example', data, function(err, out) {
-          $('#dust_pan').html(err ? err : out);
-        });
-      });
+```javascript
+<script src="@routes.Assets.at("lib/jquery/jquery.js")"></script>
+<script src="@routes.Assets.at("lib/dustjs-linkedin/dist/dust-core.js")"></script>
+<script src="@routes.Assets.at("lib/dustjs-helpers/dist/dust-helpers.js")"></script>
+<script src="@routes.Assets.at("templates/test.js")"></script>
+<script>
+$(function() {
+  $.get('@(routes.Application.data)', function(data) {
+    console.log('data = ' + JSON.stringify(data));
+    dust.render('templates/test', data, function(err, out) {
+      $('#dust_pan').html(err ? err : out);
     });
+  });
+});
+</script>
+```
 
 Example project with RequireJS using play-dustjs: <https://github.com/jmparsons/play-scala-backbone-todo>
 
+#### Speed up compilation using node
+
+Add this to your `build.sbt` to enabled node compilation - requires node installed on machine.
+
+```scala
+JsEngineKeys.engineType := JsEngineKeys.EngineType.Node
+```
+
 ## Changelog
+
+1.0.4 - May 5, 2016
+
+- Converted to using `package.json` for installing dependencies
+- Versions can now be adjusted by updating `package.json`
+- Updated readme example usage
 
 1.0.3 - August 5, 2014
 

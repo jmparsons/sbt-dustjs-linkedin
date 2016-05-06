@@ -11,8 +11,8 @@ object Import {
   object DustJsKeys {
     val dustjs = TaskKey[Seq[File]]("dustjs", "Invoke the DustJs compiler.")
 
-    val helpers = SettingKey[Boolean]("dustjs-helpers", "Load in DustJs helpers.")
-    val infoNotice = SettingKey[Boolean]("dustjs-info-notice", "Show DustJs notice.")
+    val helpers = SettingKey[Boolean]("dustjs-helpers", "Loads in DustJs helpers if they are available.")
+    val infoNotice = SettingKey[Boolean]("dustjs-info-notice", "Show DustJs version number and if helpers are active.")
   }
 
 }
