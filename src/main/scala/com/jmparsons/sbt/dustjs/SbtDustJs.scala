@@ -13,6 +13,7 @@ object Import {
 
     val helpers = SettingKey[Boolean]("dustjs-helpers", "Loads in DustJs helpers if they are available.")
     val infoNotice = SettingKey[Boolean]("dustjs-info-notice", "Show DustJs version number and if helpers are active.")
+    val amdModule = SettingKey[Boolean]("dustjs-amd-module", "Compile the templates as AMD modules.")
   }
 
 }
@@ -34,13 +35,15 @@ object SbtDustJs extends AutoPlugin {
     includeFilter := "*.tl",
     jsOptions := JsObject(
       "helpers" -> JsBoolean(helpers.value),
-      "infoNotice" -> JsBoolean(infoNotice.value)
+      "infoNotice" -> JsBoolean(infoNotice.value),
+      "amdModule" -> JsBoolean(amdModule.value)
     ).toString()
   )
 
   override def projectSettings = Seq(
     helpers := false,
-    infoNotice := false
+    infoNotice := false,
+    amdModule := false
   ) ++ inTask(dustjs)(
     SbtJsTask.jsTaskSpecificUnscopedSettings ++
       inConfig(Assets)(dustjsUnscopedSettings) ++

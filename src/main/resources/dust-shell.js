@@ -23,6 +23,10 @@
         console.error("DustJs: " + e);
     }
 
+    if (options.amdModule){
+	dust.config.amd = true;
+    }
+
     if (options.helpers) {
         try {
           require("dustjs-helpers");
