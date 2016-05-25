@@ -20,13 +20,11 @@ Option              | Description
 --------------------|------------------------------------------------------
 helpers             | Loads in DustJs helpers if they are available.
 infoNotice          | Show DustJs version number and if helpers are active.
-amdModule	    | Compile the templates as AMD modules. The templates will require the module 'dust.core' (as compiled by the dust template compile)
 
 Example:
 
 ```scala
 DustJsKeys.helpers in Assets := true
-DustJsKeys.amdModule in Assets := true
 ```
 
 ## Usage
