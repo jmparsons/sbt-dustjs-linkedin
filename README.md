@@ -11,7 +11,7 @@ This plugin is a continuation of [play-dustjs][play-dustjs] built for [sbt-web][
 Add the sbt plugin to your `project/plugins.sbt` file:
 
 ```scala
-addSbtPlugin("com.jmparsons.sbt" % "sbt-dustjs-linkedin" % "1.0.4")
+addSbtPlugin("com.jmparsons.sbt" % "sbt-dustjs-linkedin" % "1.0.5")
 ```
 
 Two options are available:
@@ -20,7 +20,7 @@ Option              | Description
 --------------------|------------------------------------------------------
 helpers             | Loads in DustJs helpers if they are available.
 infoNotice          | Show DustJs version number and if helpers are active.
-amdModule	    | Compile the templates as AMD modules. The templates will require the module 'dust.core' (as compiled by the dust template compile)
+amdModule           | Compile the templates as AMD modules. The templates will require the module 'dust.core' (as compiled by the dust template compile)
 
 Example:
 
@@ -122,6 +122,10 @@ JsEngineKeys.engineType := JsEngineKeys.EngineType.Node
 ```
 
 ## Changelog
+
+1.0.5 - May 25, 2016
+
+- Added template compiling as AMD module
 
 1.0.4 - May 5, 2016
 

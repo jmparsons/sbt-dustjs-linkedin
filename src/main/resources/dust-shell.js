@@ -19,12 +19,11 @@
 
     try {
         var dust = require("dustjs-linkedin");
+        if (options.amdModule) {
+            dust.config.amd = true;
+        }
     } catch (e) {
         console.error("DustJs: " + e);
-    }
-
-    if (options.amdModule){
-	dust.config.amd = true;
     }
 
     if (options.helpers) {
