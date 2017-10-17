@@ -4,14 +4,14 @@
 
 An SBT plugin to compile [Dustjs](https://github.com/linkedin/dustjs) templates.
 
-This plugin is a continuation of [play-dustjs][play-dustjs] built for [sbt-web][sbt-web] and [Play 2.3.x][play] -  [Play 2.5.x][play].
+This plugin is a continuation of [play-dustjs][play-dustjs] built for [sbt-web][sbt-web] and [Play 2.3.x][play] -  [Play 2.6.x][play].
 
 ## Installation
 
 Add the sbt plugin to your `project/plugins.sbt` file:
 
 ```scala
-addSbtPlugin("com.jmparsons.sbt" % "sbt-dustjs-linkedin" % "1.0.5")
+addSbtPlugin("com.jmparsons.sbt" % "sbt-dustjs-linkedin" % "1.0.6")
 ```
 
 Two options are available:

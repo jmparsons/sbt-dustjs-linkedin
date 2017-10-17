@@ -1,15 +1,18 @@
+import sbt.Resolver
+
 name := "sbt-dustjs-linkedin"
 
 organization := "com.jmparsons.sbt"
 
-version := "1.0.5"
+version := "1.0.6-SNAPSHOT"
+
+resolvers ++= Seq(
+	"Typesafe Releases Repository" at "http://repo.typesafe.com/typesafe/releases/",
+	Resolver.url("sbt snapshot plugins", url("http://repo.scala-sbt.org/scalasbt/sbt-plugin-snapshots"))(Resolver.ivyStylePatterns),
+	Resolver.sonatypeRepo("snapshots"),
+	"Typesafe Snapshots Repository" at "http://repo.typesafe.com/typesafe/snapshots/"
+)
 
 sbtPlugin := true
 
-scalaVersion := "2.10.4"
-
-addSbtPlugin("com.typesafe.sbt" %% "sbt-js-engine" % "1.1.3")
-
-scriptedSettings
-
-scriptedLaunchOpts += ("-Dproject.version=" + version.value)
+addSbtJsEngine("1.2.2")
