@@ -158,7 +158,7 @@ JsEngineKeys.engineType := JsEngineKeys.EngineType.Node
 - Added tests using sbt scripted
 
 ## License
-MIT: <http://jmparsons.mit-license.org> - [@jmparsons](http://twitter.com/jmparsons)
+MIT: <https://opensource.org/licenses/MIT>
 
 [play]: http://www.playframework.com/
 [play-dustjs]: https://github.com/jmparsons/play-dustjs
