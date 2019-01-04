@@ -11,7 +11,7 @@ This plugin is a continuation of [play-dustjs][play-dustjs] built for [sbt-web][
 Add the sbt plugin to your `project/plugins.sbt` file:
 
 ```scala
-addSbtPlugin("se-sisyfosdigital.sbt" % "sbt-dustjs-linkedin" % "1.0.6")
+addSbtPlugin("se.sisyfosdigital.sbt" % "sbt-dustjs-linkedin" % "1.0.6")
 ```
 
 Two options are available:
