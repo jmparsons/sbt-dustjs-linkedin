@@ -1,7 +1,6 @@
 {
   "name": "sbt-dustjs-linkedin-tester",
   "dependencies": {
-    "mkdirp": "~0.5.0",
     "dustjs-linkedin": "^2.7.2",
     "dustjs-helpers": "1.7.3"
   }

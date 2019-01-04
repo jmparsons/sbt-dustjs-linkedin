@@ -1,6 +1,6 @@
 # sbt-dustjs-linkedin
 
-[![Build Status](https://api.travis-ci.org/jmparsons/sbt-dustjs-linkedin.png?branch=master)](https://travis-ci.org/jmparsons/sbt-dustjs-linkedin)
+[![Build Status](https://api.travis-ci.org/mebur/sbt-dustjs-linkedin.png?branch=master)](https://travis-ci.org/mebur/sbt-dustjs-linkedin)
 
 An SBT plugin to compile [Dustjs](https://github.com/linkedin/dustjs) templates.
 
@@ -11,7 +11,7 @@ This plugin is a continuation of [play-dustjs][play-dustjs] built for [sbt-web][
 Add the sbt plugin to your `project/plugins.sbt` file:
 
 ```scala
-addSbtPlugin("com.jmparsons.sbt" % "sbt-dustjs-linkedin" % "1.0.6")
+addSbtPlugin("se-sisyfosdigital.sbt" % "sbt-dustjs-linkedin" % "1.0.6")
 ```
 
 Two options are available:
@@ -122,6 +122,10 @@ JsEngineKeys.engineType := JsEngineKeys.EngineType.Node
 ```
 
 ## Changelog
+
+1.0.6 - January 4, 2019
+
+- Cross compiled version
 
 1.0.5 - May 25, 2016
 

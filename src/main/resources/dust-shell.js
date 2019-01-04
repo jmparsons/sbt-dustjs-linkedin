@@ -6,7 +6,6 @@
 
     var args = process.argv,
         fs = require("fs"),
-        mkdirp = require("mkdirp"),
         path = require("path");
 
     var SOURCE_FILE_MAPPINGS_ARG = 2;
@@ -52,6 +51,20 @@
         if (e) throw e;
     }
 
+	function mkdirSyncP(location) {
+        let normalizedPath = path.normalize(location);
+        let parsedPathObj = path.parse(normalizedPath);
+        let curDir = parsedPathObj.root;
+        let folders = parsedPathObj.dir.split(path.sep);
+        folders.push(parsedPathObj.base);
+        for(let part of folders) {
+            curDir = path.join(curDir, part);
+            if (!fs.existsSync(curDir)) {
+                fs.mkdirSync(curDir);
+            }
+        }
+    }
+
     sourceFileMappings.forEach(function (sourceFileMapping) {
 
         var input = sourceFileMapping[0];
@@ -63,24 +76,22 @@
             throwIfErr(e);
 
             try {
-                mkdirp(path.dirname(output), function (e) {
+                mkdirSyncP(path.dirname(output));
+
+                var compiled = dust.compile(contents, moduleName);
+
+                fs.writeFile(output, compiled, "utf8", function (e) {
                     throwIfErr(e);
 
-                    var compiled = dust.compile(contents, moduleName);
-
-                    fs.writeFile(output, compiled, "utf8", function (e) {
-                        throwIfErr(e);
-
-                        results.push({
-                            source: input,
-                            result: {
-                                filesRead: [input],
-                                filesWritten: [output]
-                            }
-                        });
-
-                        compileDone();
+                    results.push({
+                        source: input,
+                        result: {
+                            filesRead: [input],
+                            filesWritten: [output]
+                        }
                     });
+
+                    compileDone();
                 });
 
             } catch (err) {

@@ -1,10 +1,9 @@
 import sbt.Resolver
 
 name := "sbt-dustjs-linkedin"
-
-organization := "com.jmparsons.sbt"
-
-version := "1.0.6-SNAPSHOT"
+organization := "se.sisyfosdigital.sbt"
+description in ThisBuild := "An SBT plugin to compile Dustjs templates."
+licenses in ThisBuild += ("MIT", url("https://opensource.org/licenses/MIT"))
 
 resolvers ++= Seq(
 	"Typesafe Releases Repository" at "http://repo.typesafe.com/typesafe/releases/",
@@ -14,5 +13,8 @@ resolvers ++= Seq(
 )
 
 sbtPlugin := true
+publishMavenStyle := false
+bintrayRepository := "sbt-plugins"
+bintrayOrganization := None
 
 addSbtJsEngine("1.2.2")

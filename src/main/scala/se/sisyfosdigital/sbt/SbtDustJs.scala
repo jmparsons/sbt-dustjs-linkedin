@@ -1,4 +1,4 @@
-package com.jmparsons.sbt.dustjs
+package se.sisyfosdigital.sbt
 
 import com.typesafe.sbt.jse.SbtJsTask
 import sbt._
