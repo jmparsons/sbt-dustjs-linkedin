@@ -1,15 +1,11 @@
 name := "sbt-dustjs-linkedin"
-
-organization := "com.jmparsons.sbt"
-
-version := "1.0.5"
+organization := "se.sisyfosdigital.sbt"
+description in ThisBuild := "An SBT plugin to compile Dustjs templates."
+licenses in ThisBuild += ("MIT", url("https://opensource.org/licenses/MIT"))
 
 sbtPlugin := true
+publishMavenStyle := false
+bintrayRepository := "sbt-plugins"
+bintrayOrganization := Some( "sisyfos-digital" )
 
-scalaVersion := "2.10.4"
-
-addSbtPlugin("com.typesafe.sbt" %% "sbt-js-engine" % "1.1.3")
-
-scriptedSettings
-
-scriptedLaunchOpts += ("-Dproject.version=" + version.value)
+addSbtJsEngine("1.2.3")

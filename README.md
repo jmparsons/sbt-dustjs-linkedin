@@ -1,17 +1,19 @@
 # sbt-dustjs-linkedin
 
-[![Build Status](https://api.travis-ci.org/jmparsons/sbt-dustjs-linkedin.png?branch=master)](https://travis-ci.org/jmparsons/sbt-dustjs-linkedin)
+[![Build Status](https://api.travis-ci.org/mebur/sbt-dustjs-linkedin.png?branch=master)](https://travis-ci.org/mebur/sbt-dustjs-linkedin)
 
 An SBT plugin to compile [Dustjs](https://github.com/linkedin/dustjs) templates.
 
-This plugin is a continuation of [play-dustjs][play-dustjs] built for [sbt-web][sbt-web] and [Play 2.3.x][play] -  [Play 2.5.x][play].
+This plugin is a continuation of [play-dustjs][play-dustjs] built for [sbt-web][sbt-web] and [Play 2.3.x][play] -  [Play 2.6.x][play].
 
 ## Installation
 
 Add the sbt plugin to your `project/plugins.sbt` file:
 
 ```scala
-addSbtPlugin("com.jmparsons.sbt" % "sbt-dustjs-linkedin" % "1.0.5")
+resolvers += Resolver.bintrayIvyRepo("sisyfos-digital", "sbt-plugins")
+
+addSbtPlugin("se.sisyfosdigital.sbt" % "sbt-dustjs-linkedin" % "1.0.6")
 ```
 
 Two options are available:
@@ -123,6 +125,10 @@ JsEngineKeys.engineType := JsEngineKeys.EngineType.Node
 
 ## Changelog
 
+1.0.6 - January 4, 2019
+
+- Cross compiled version
+
 1.0.5 - May 25, 2016
 
 - Added template compiling as AMD module
@@ -154,7 +160,7 @@ JsEngineKeys.engineType := JsEngineKeys.EngineType.Node
 - Added tests using sbt scripted
 
 ## License
-MIT: <http://jmparsons.mit-license.org> - [@jmparsons](http://twitter.com/jmparsons)
+MIT: <https://opensource.org/licenses/MIT>
 
 [play]: http://www.playframework.com/
 [play-dustjs]: https://github.com/jmparsons/play-dustjs

@@ -1,4 +1,4 @@
-package com.jmparsons.sbt.dustjs
+package se.sisyfosdigital.sbt
 
 import com.typesafe.sbt.jse.SbtJsTask
 import sbt._
@@ -40,17 +40,22 @@ object SbtDustJs extends AutoPlugin {
     ).toString()
   )
 
+  override def buildSettings = inTask(dustjs)(
+    SbtJsTask.jsTaskSpecificUnscopedBuildSettings ++ Seq(
+      moduleName := "dustjs",
+      shellFile := getClass.getClassLoader.getResource("dust-shell.js")
+    )
+  )
+
   override def projectSettings = Seq(
     helpers := false,
     infoNotice := false,
     amdModule := false
   ) ++ inTask(dustjs)(
-    SbtJsTask.jsTaskSpecificUnscopedSettings ++
+    SbtJsTask.jsTaskSpecificUnscopedProjectSettings ++
       inConfig(Assets)(dustjsUnscopedSettings) ++
       inConfig(TestAssets)(dustjsUnscopedSettings) ++
       Seq(
-        moduleName := "dustjs",
-        shellFile := getClass.getClassLoader.getResource("dust-shell.js"),
         taskMessage in Assets := "DustJs compiling",
         taskMessage in TestAssets := "DustJs test compiling"
       )
