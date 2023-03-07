@@ -1,7 +1,7 @@
 name := "sbt-dustjs-linkedin"
 organization := "se.sisyfosdigital.sbt"
-description in ThisBuild := "An SBT plugin to compile Dustjs templates."
-licenses in ThisBuild += ("MIT", url("https://opensource.org/licenses/MIT"))
+ThisBuild / description := "An SBT plugin to compile Dustjs templates."
+ThisBuild / licenses += ("MIT", url("https://opensource.org/licenses/MIT"))
 
 sbtPlugin := true
 publishMavenStyle := false

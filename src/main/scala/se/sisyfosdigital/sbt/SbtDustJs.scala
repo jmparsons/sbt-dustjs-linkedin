@@ -56,12 +56,12 @@ object SbtDustJs extends AutoPlugin {
       inConfig(Assets)(dustjsUnscopedSettings) ++
       inConfig(TestAssets)(dustjsUnscopedSettings) ++
       Seq(
-        taskMessage in Assets := "DustJs compiling",
-        taskMessage in TestAssets := "DustJs test compiling"
+        Assets / taskMessage := "DustJs compiling",
+        TestAssets / taskMessage := "DustJs test compiling"
       )
   ) ++ SbtJsTask.addJsSourceFileTasks(dustjs) ++ Seq(
-    dustjs in Assets := (dustjs in Assets).dependsOn(webModules in Assets).value,
-    dustjs in TestAssets := (dustjs in TestAssets).dependsOn(webModules in TestAssets).value
+    Assets / dustjs := (Assets / dustjs).dependsOn(Assets / webModules).value,
+    TestAssets / dustjs := (TestAssets / dustjs).dependsOn(TestAssets / webModules).value
   )
 
 }
